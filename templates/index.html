@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Email Processing</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Header -->
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">AI Email Processing</h1>
+        
+        <!-- Main Content -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Left Side: Email Processing -->
+            <div class="space-y-6">
+                <!-- Email Body Input -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Email Body</h2>
+                    <textarea 
+                        id="emailBody" 
+                        rows="8" 
+                        class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        placeholder="Enter email content here..."></textarea>
+                    <button 
+                        id="processEmailBtn" 
+                        class="w-full mt-4 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Process Email
+                    </button>
+                </div>
+
+                <!-- Email Output -->
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Email</h2>
+                    <div id="emailOutput" class="bg-gray-50 p-4 rounded-md min-h-[200px] border">
+                        <p class="text-gray-500 text-center">Processed email will appear here...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Data Table -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-xl font-semibold mb-4 text-gray-800">Leads Data</h2>
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Name</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Email</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Status</th>
+                                <th class="px-4 py-2 text-left text-sm font-medium text-gray-500">Account ID</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leadsTableBody" class="divide-y divide-gray-200">
+                            <tr>
+                                <td colspan="4" class="px-4 py-8 text-center text-gray-500">Loading...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class SimpleDashboard {
+            constructor() {
+                this.leads = [];
+                this.initializeApp();
+            }
+
+            initializeApp() {
+                this.setupEventListeners();
+                this.loadLeads();
+            }
+
+            setupEventListeners() {
+                document.getElementById('processEmailBtn').addEventListener('click', () => {
+                    this.processEmail();
+                });
+            }
+
+            async processEmail() {
+                const emailContent = document.getElementById('emailBody').value.trim();
+
+                if (!emailContent) {
+                    alert('Please enter email content');
+                    return;
+                }
+
+                try {
+                    const emailData = {
+                        email: {
+                            from: "user@example.com",
+                            name: "User",
+                            subject: "Email Subject",
+                            Email_Content: emailContent
+                        }
+                    };
+
+                    const response = await fetch('/api/email/process', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(emailData)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.status === 'processed') {
+                        this.displayEmailOutput(result);
+                        this.loadLeads(); // Refresh table
+                        alert(`Email processed successfully! Intent: ${result.intent}`);
+                    } else {
+                        alert(result.error || 'Processing failed');
+                    }
+                } catch (error) {
+                    alert(`Error: ${error.message}`);
+                }
+            }
+
+            displayEmailOutput(result) {
+                const emailOutput = document.getElementById('emailOutput');
+                emailOutput.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="border-b pb-2">
+                            <p><strong>To:</strong> ${result.to}</p>
+                            <p><strong>Intent:</strong> ${result.intent}</p>
+                            <p><strong>Status:</strong> ${result.is_new_lead ? 'New Lead' : 'Existing Customer'}</p>
+                        </div>
+                        <div>
+                            <p><strong>Subject:</strong></p>
+                            <p class="bg-white p-2 rounded border text-sm">${result.reply_subject}</p>
+                        </div>
+                        <div>
+                            <p><strong>Body:</strong></p>
+                            <div class="bg-white p-3 rounded border text-sm whitespace-pre-wrap">${result.reply_body}</div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            async loadLeads() {
+                try {
+                    const response = await fetch('/api/crm/leads');
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        this.leads = result.leads;
+                        this.renderLeadsTable();
+                    }
+                } catch (error) {
+                    console.error('Error loading leads:', error);
+                }
+            }
+
+            renderLeadsTable() {
+                const tbody = document.getElementById('leadsTableBody');
+                
+                if (this.leads.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="px-4 py-8 text-center text-gray-500">No leads found</td></tr>';
+                    return;
+                }
+
+                tbody.innerHTML = this.leads.map(lead => `
+                    <tr class="hover:bg-gray-50">
+                        <td class="px-4 py-3 text-sm">${lead.name}</td>
+                        <td class="px-4 py-3 text-sm">${lead.email}</td>
+                        <td class="px-4 py-3 text-sm">
+                            <span class="px-2 py-1 rounded text-xs ${lead.status === 'New Lead' ? 'bg-green-100 text-green-800' : 'bg-blue-100 text-blue-800'}">
+                                ${lead.status}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3 text-sm">${lead.account_id || '-'}</td>
+                    </tr>
+                `).join('');
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new SimpleDashboard();
+        });
+    </script>
+</body>
+</html>
