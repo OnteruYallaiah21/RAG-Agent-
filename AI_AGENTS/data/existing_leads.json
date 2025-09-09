@@ -1,0 +1,44 @@
+[
+  {
+    "id": "lead_1",
+    "name": "John Doe",
+    "email": "john@demo.com",
+    "intent": "sales",
+    "status": "Existing Lead",
+    "account_id": "AC123",
+    "company": "Demo Corp",
+    "created_at": "2025-09-01T10:00:00",
+    "last_contact": "2025-09-08T14:30:00",
+    "lead_quality": "high",
+    "potential_value": "high",
+    "notes": "VIP customer with high engagement"
+  },
+  {
+    "id": "lead_2",
+    "name": "Sarah Johnson",
+    "email": "sarah@company.com",
+    "intent": "support",
+    "status": "Existing Lead",
+    "account_id": "AC124",
+    "company": "Tech Solutions Inc",
+    "created_at": "2025-09-05T14:30:00",
+    "last_contact": "2025-09-08T16:21:19",
+    "lead_quality": "high",
+    "potential_value": "medium",
+    "notes": "Regular support requests, satisfied customer"
+  },
+  {
+    "id": "lead_3",
+    "name": "Mike Wilson",
+    "email": "mike@techcorp.com",
+    "intent": "partnership",
+    "status": "Existing Lead",
+    "account_id": "AC125",
+    "company": "TechCorp",
+    "created_at": "2025-09-05T09:15:00",
+    "last_contact": "2025-09-07T11:45:00",
+    "lead_quality": "medium",
+    "potential_value": "high",
+    "notes": "Partnership discussions ongoing"
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "lead_4",
+    "name": "Emily Chen",
+    "email": "emily@startup.io",
+    "intent": "sales",
+    "status": "New Lead",
+    "account_id": null,
+    "company": "StartupIO",
+    "created_at": "2025-09-08T15:30:00",
+    "last_contact": "2025-09-08T15:30:00",
+    "lead_quality": "high",
+    "potential_value": "high",
+    "notes": "New startup interested in AI solutions"
+  },
+  {
+    "id": "lead_5",
+    "name": "Bob Johnson",
+    "email": "bob@startup.io",
+    "intent": "partnership",
+    "status": "New Lead",
+    "account_id": null,
+    "company": "Innovation Labs",
+    "created_at": "2025-09-08T16:40:40",
+    "last_contact": "2025-09-08T16:40:40",
+    "lead_quality": "medium",
+    "potential_value": "medium",
+    "notes": "Partnership inquiry from new company"
+  },
+  {
+    "id": "lead_164319187",
+    "name": "Alice Smith",
+    "email": "alice@newcompany.com",
+    "intent": "general",
+    "status": "New Lead",
+    "account_id": null,
+    "created_at": "2025-09-08T17:58:43.731798",
+    "last_contact": "2025-09-08T17:58:43.731798"
+  },
+  {
+    "id": "lead_164449093",
+    "name": "User",
+    "email": "user@example.com",
+    "intent": "general",
+    "status": "New Lead",
+    "account_id": null,
+    "created_at": "2025-09-08T18:00:53.644831",
+    "last_contact": "2025-09-08T18:00:53.644831"
+  }
+]
