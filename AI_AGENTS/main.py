@@ -184,12 +184,13 @@ async def get_leads():
         return {"success": False, "error": str(e), "leads": []}
 
 def main():
-    """Main entry point - Simple Contact Form API"""
-    print("🚀 Contact Form API")
+    """Main entry point - Simple Contact Form API (DEV BRANCH)"""
+    print("🚀 Contact Form API - DEV BRANCH")
     print(f"🌐 Contact Form: http://{settings.host}:{settings.port}")
     print("=" * 50)
     print("📨 Prints JSON payload from frontend")
-    print("🤖 Returns dummy response to frontend")
+    print("🤖 Returns AI-generated response from LLM")
+    print("🔧 Development branch - Enhanced features")
     print("=" * 50)
     
     # Start the web server
