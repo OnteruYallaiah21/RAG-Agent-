@@ -114,7 +114,7 @@ AI_AGENTS/
    ```
 
 5. **Access the contact form:**
-   Open http://localhost:8000 in your browser
+   Open http://localhost:5000 in your browser
 
 ## 🔧 Configuration
 
@@ -124,7 +124,7 @@ AI_AGENTS/
 |----------|-------------|----------|
 | `GROQ_API_KEY` | Groq API key for LLM | Yes |
 | `HOST` | Server host | No (default: 0.0.0.0) |
-| `PORT` | Server port | No (default: 8000) |
+| `PORT` | Server port | No (default: 5000) |
 | `DEBUG` | Debug mode | No (default: false) |
 
 ### AI Provider Configuration
@@ -264,9 +264,10 @@ The system uses Groq's Llama-3.1-8b-instant model to generate:
 
 ## 🧪 Testing
 
+
 ### Manual Testing
 1. **Start the application**: `python run.py`
-2. **Open browser**: Navigate to http://localhost:8000
+2. **Open browser**: Navigate to http://localhost:5000
 3. **Fill contact form**: Submit with test data
 4. **Check console**: Verify debug output
 5. **Review response**: Confirm AI-generated email
@@ -301,7 +302,7 @@ COPY requirements.txt .
 RUN pip install -r requirements.txt
 
 COPY . .
-EXPOSE 8000
+EXPOSE 5000
 
 CMD ["python", "run.py"]
 ```
