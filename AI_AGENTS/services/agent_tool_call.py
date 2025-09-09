@@ -163,11 +163,11 @@ def prepare_email_agent(user_input: Dict):
     formatted_prompt = f"{prompt_text}\n\nRespond using JSON format:\n{email_parser.get_format_instructions()}"
 
     # LLM call
-    print("🤖 CALLING LLM FOR EMAIL GENERATION...")
+    print(" CALLING LLM FOR EMAIL GENERATION...")
     llm_response = llm.invoke([{"role": "user", "content": formatted_prompt}])
     email_content = email_parser.parse(llm_response.text())
     
-    print("📧 GENERATED EMAIL CONTENT:")
+    print(" GENERATED EMAIL CONTENT:")
     print("="*60)
     print(f"Subject: {email_content['subject']}")
     print(f"Body:\n{email_content['body']}")
@@ -190,7 +190,7 @@ def prepare_email_agent(user_input: Dict):
         "email_body": email_content["body"]
     }
     
-    print(f"✅ AI AGENT COMPLETED - Result: {json.dumps(result, indent=2)}")
+    print(f" AI AGENT COMPLETED - Result: {json.dumps(result, indent=2)}")
     return result
 
 # -------------------------
