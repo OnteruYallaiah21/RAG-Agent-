@@ -80,7 +80,7 @@ async def process_email(request_data: ContactFormData):
     
     # Print JSON payload received from frontend
     print("\n" + "="*60)
-    print("📨 JSON PAYLOAD RECEIVED FROM FRONTEND:")
+    print(" JSON PAYLOAD RECEIVED FROM FRONTEND:")
     print("="*60)
     print(json.dumps(request_data.dict(), indent=2))
     print("="*60)
@@ -96,13 +96,13 @@ async def process_email(request_data: ContactFormData):
             "tag": request_data.tag
         }
         
-        print("🤖 CALLING AI AGENT...")
+        print(" CALLING AI AGENT...")
         print(f"Agent Input: {json.dumps(agent_input, indent=2)}")
         
         # Call the AI agent
         agent_result = prepare_email_agent(agent_input)
         
-        print("✅ AI AGENT RESPONSE RECEIVED:")
+        print(" AI AGENT RESPONSE RECEIVED:")
         print(f"Agent Result: {json.dumps(agent_result, indent=2)}")
        
         # Map agent result to frontend response format
@@ -123,7 +123,7 @@ async def process_email(request_data: ContactFormData):
         }
         
         # Print agent response being sent
-        print("🤖 AI AGENT RESPONSE SENT TO FRONTEND:")
+        print("AI AGENT RESPONSE SENT TO FRONTEND:")
         print("="*60)
         print(json.dumps(response_data, indent=2))
         print("="*60 + "\n")
@@ -131,7 +131,7 @@ async def process_email(request_data: ContactFormData):
         return EmailResponse(**response_data)
         
     except Exception as e:
-        print(f"❌ Error processing with AI agent: {str(e)}")
+        print(f"Error processing with AI agent: {str(e)}")
         
         # Fallback to dummy response on error
         fallback_response = {
@@ -180,17 +180,17 @@ async def get_leads():
         return {"success": True, "leads": leads}
         
     except Exception as e:
-        print(f"❌ Error loading leads: {str(e)}")
+        print(f"Error loading leads: {str(e)}")
         return {"success": False, "error": str(e), "leads": []}
 
 def main():
     """Main entry point - Simple Contact Form API (DEV BRANCH)"""
-    print("🚀 Contact Form API - DEV BRANCH")
-    print(f"🌐 Contact Form: http://{settings.host}:{settings.port}")
+    print(" Contact Form API - DEV BRANCH")
+    print(f" Contact Form: http://{settings.host}:{settings.port}")
     print("=" * 50)
-    print("📨 Prints JSON payload from frontend")
-    print("🤖 Returns AI-generated response from LLM")
-    print("🔧 Development branch - Enhanced features")
+    print("Prints JSON payload from frontend")
+    print("Returns AI-generated response from LLM")
+    print("Development branch - Enhanced features")
     print("=" * 50)
     
     # Start the web server
